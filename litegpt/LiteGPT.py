@@ -1,18 +1,16 @@
 import httpx
 import re
 import json
-import logging
 
 from .lib import History
 from .lib.exceptions import checkErrorStatus
-logging.basicConfig(level=logging.WARNING, format='%(asctime)s - %(levelname)s - %(message)s')
+
 class LiteGPT:
 	def __init__(self, http2=False):
 		self.requests = httpx.Client(http2=http2)
 
 	def ask(self, prompt, history: History = None):
 		if history is not None and type(history) is not History:
-			logging.warning("Передано недопустимое значение для 'history': ожидался тип 'History' или значение не должно быть None.")
 			return False
 		pattern = r'data:\s*{\s*"data":\s*"(.*?)"\s*}'
 		
