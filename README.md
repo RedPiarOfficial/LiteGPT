@@ -33,3 +33,17 @@ bot = LiteGPT()
 response = bot.ask("Your query here...")
 print(response)
 ```
+
+**Text Queries Async**
+
+```python
+from litegpt import AsyncLiteGPT
+import asyncio
+
+async def main():
+	# Initialize LiteGPT and send a query
+	bot = AsyncLiteGPT()
+	response = await bot.ask("Your query here...")
+	print(response)
+asyncio.run(main())
+```
