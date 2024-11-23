@@ -1,13 +1,16 @@
 import httpx
 import re
 import json
-
+import sys
 from .lib import AsyncHistory
+from .lib.utils import Dtime
 from .lib.exceptions import checkErrorStatus
+import asyncio
 
 class AsyncLiteGPT:
 	def __init__(self, http2=False):
 		self.http2 = http2
+		self._checkPython()
 
 	async def ask(self, prompt, history: AsyncHistory = None):
 		if history is not None and type(history) is not AsyncHistory:
@@ -23,7 +26,7 @@ class AsyncLiteGPT:
 										"origin": "https://www.aiuncensored.info"
 									},
 									json={
-										"cipher": "0000000000000000",
+										"cipher": await asyncio.to_thread(Dtime.rJ),
 										"messages": [{"role": "user", "content": str(prompt)}] if history == None else history
 									})
 			checkErrorStatus(resp.status_code)
@@ -38,8 +41,12 @@ class AsyncLiteGPT:
 										"origin": "https://www.aiuncensored.info"
 									},
 									json={
-										"cipher": "0000000000000000",
+										"cipher": await asyncio.to_thread(Dtime.rJ),
 										"prompt": str(prompt)
 									})
 			checkErrorStatus(resp.status_code)
 			return resp.json()
+
+	def _checkPython(self):
+		if sys.version_info <= (3, 8):
+			print(f"[Warning AsyncLiteGPT] Async mode not supported python <= 3.8 (Your Version: {sys.version_info})")

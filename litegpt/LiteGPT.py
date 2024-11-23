@@ -1,9 +1,11 @@
 import httpx
 import re
 import json
+import random
 
 from .lib import History
 from .lib.exceptions import checkErrorStatus
+from .lib.utils import Dtime
 
 class LiteGPT:
 	def __init__(self, http2=False):
@@ -20,11 +22,9 @@ class LiteGPT:
 
 		resp = self.requests.post("https://twitterclone-8wd1.onrender.com/api/chat",
 									timeout=30,
-									headers={
-												"origin": "https://www.aiuncensored.info",
-											},
+									headers={"origin": "https://www.aiuncensored.info"},
 									json={
-											"cipher": "0000000000000000",
+											"cipher": Dtime.rJ(),
 											"messages": [{"role": "user", "content": str(prompt)}] if history == None else history
 										}
 									)
@@ -38,7 +38,7 @@ class LiteGPT:
 									timeout=30,
 									headers={"origin": "https://www.aiuncensored.info"},
 									json={
-											"cipher": "0000000000000000",
+											"cipher": Dtime.rJ(),
 											"prompt": str(prompt)
 										}
 									)
