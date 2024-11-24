@@ -19,7 +19,6 @@ class LiteGPT:
 		if type(history) is History:
 			history = history.history
 			history.append({"role": "user", "content": str(prompt)})
-
 		resp = self.requests.post("https://twitterclone-8wd1.onrender.com/api/chat",
 									timeout=30,
 									headers={"origin": "https://www.aiuncensored.info"},

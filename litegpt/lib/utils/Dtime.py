@@ -1,7 +1,7 @@
-from datetime import datetime, timezone
+from datetime import datetime, timezone, timedelta
 
 def rJ():
-	now = datetime.now(timezone.utc)  # Получаем текущее время в UTC с учетом часового пояса
+	now = datetime.now(timezone.utc) + timedelta(minutes=-1)  # Получаем текущее время в UTC с учетом часового пояса
 	e = str(now.day).zfill(2)  # День месяца с ведущим нулем
 	t = str(now.hour).zfill(2)  # Часы с ведущим нулем
 	r = str(now.minute).zfill(2)  # Минуты с ведущим нулем
